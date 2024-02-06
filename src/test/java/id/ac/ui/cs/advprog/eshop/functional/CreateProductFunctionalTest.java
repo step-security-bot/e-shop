@@ -1,20 +1,30 @@
 package id.ac.ui.cs.advprog.eshop.functional;
+import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
 import io.github.bonigarcia.seljup.SeleniumJupiter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SeleniumJupiter.class)
-class HomePageFunctionalTest {
+class CreateProductFunctionalTest {
+
+    @InjectMocks
+    ProductRepository productRepository;
+
     @LocalServerPort
     private int serverPort;
     
@@ -30,16 +40,17 @@ class HomePageFunctionalTest {
 
     @Test
     void createProductFunctionalTest(ChromeDriver driver) throws Exception {
-        driver.get(baseUrl + "/create");
+        driver.get(baseUrl + "/product/list");
 
         driver.findElement(By.id("createProduct")).click();
-        driver.findElement(By.id("name")).sendKeys("Product 1");
-        driver.findElement(By.id("price")).sendKeys("10000");
-        driver.findElement(By.id("description")).sendKeys("Description 1");
+        driver.findElement(By.id("nameInput")).sendKeys("Product 1");
+        driver.findElement(By.id("quantityInput")).sendKeys("100");
         driver.findElement(By.id("submit")).click();
 
-        assertEquals("Product 1", driver.findElement(By.id("productName")).getText());
-        assertEquals("10000", driver.findElement(By.id("productPrice")).getText());
-        assertEquals("Description 1", driver.findElement(By.id("productDescription")).getText());
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        Product product = productIterator.next();
+        assertEquals("Product 1", product.getProductName());
+        assertEquals(100, product.getProductQuantity());
     }
 }
