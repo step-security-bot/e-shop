@@ -63,7 +63,7 @@ class ProductRepositoryTest {
         product.setProductQuantity(100);
         productRepository.create(product);
 
-        Product deletedProduct = productRepository.delete("Sampo Cap Bambang");
+        productRepository.delete("Sampo Cap Bambang");
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
