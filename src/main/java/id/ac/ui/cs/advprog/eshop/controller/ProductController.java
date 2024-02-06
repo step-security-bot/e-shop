@@ -33,4 +33,11 @@ public class ProductController {
         model.addAttribute("products", allProducts);
         return "ListProduct";
     }
+
+    @GetMapping("/delete/{name}")
+    public String deleteProduct(@PathVariable("name") String name, Model model) {
+        service.delete(name);
+        System.out.println(name);
+        return "redirect:/product/list";
+    }
 }
