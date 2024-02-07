@@ -32,4 +32,13 @@ public class ProductRepository {
         }
         return product;
     }
+
+    public Product update(Product product, String name) {
+        Product oldProduct = findByName(name);
+        if (oldProduct != null) {
+            oldProduct.setProductName(product.getProductName());
+            oldProduct.setProductQuantity(product.getProductQuantity());
+        }
+        return oldProduct;
+    }
 }
