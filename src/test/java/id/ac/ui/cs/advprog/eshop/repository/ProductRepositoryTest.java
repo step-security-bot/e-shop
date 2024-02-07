@@ -68,4 +68,26 @@ class ProductRepositoryTest {
         assertFalse(productIterator.hasNext());
     }
 
+    @Test
+    void testEdit() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        product = ProductRepository.findByName("Sampo Cap Bambang");
+        assertNotNull(product);
+
+        Product update = new Product();
+        update.setProductName("Sampo Cap Usep");
+        update.setProductQuantity(50);
+
+        productRepository.update(update, "Sampo Cap Bambang");
+        product = ProductRepository.findByName("Sampo Cap Bambang");
+        update = ProductRepository.findByName("Sampo Cap Usep");
+        assertNull(product);
+        assertNotNull(update);
+        assertEquals("Sampo Cap Usep", update.getProductName());
+        assertEquals(50, update.getProductQuantity());
+    }
 }
