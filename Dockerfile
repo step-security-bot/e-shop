@@ -10,4 +10,4 @@ FROM docker.io/library/eclipse-temurin:21-jdk-alpine AS runner
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar eshop-0.0.1-SNAPSHOT.jar
  
-CMD ["java", "-jar", "app.jar"]
+CMD ["-jar", "eshop-0.0.1-SNAPSHOT.jar"]
