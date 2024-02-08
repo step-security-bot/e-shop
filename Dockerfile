@@ -8,7 +8,7 @@ RUN ./gradlew clean bootJar
 FROM docker.io/library/eclipse-temurin:21-jdk-alpine AS runner
 
 WORKDIR /app
-COPY --from=builder /build/libs/*.jar app.jar
+COPY --from=builder /app/build/libs/*.jar app.jar
 
 ENTRYPOINT ["java"]
 CMD ["-jar", "app.jar"]
