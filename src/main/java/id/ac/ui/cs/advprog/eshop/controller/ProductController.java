@@ -44,8 +44,6 @@ public class ProductController {
     public String editProductPage(@PathVariable("name") String name, Model model) {
         Product product = service.findByName(name);
         model.addAttribute("product", product);
-        System.out.println(product.getProductName());
-        System.out.println(product.getProductQuantity());
         return "EditProduct";
     }
 
