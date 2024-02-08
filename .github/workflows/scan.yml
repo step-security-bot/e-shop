@@ -2,6 +2,7 @@ name : Code Scanning on Every Push
 
 on:
   push:
+  pull_request:
 
 permissions: read-all
 
