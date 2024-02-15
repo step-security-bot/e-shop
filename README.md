@@ -40,3 +40,22 @@ Deployment? Explain the reasons (minimum 3 sentences)
 
 
 </details>
+
+<details>
+<summary>Tutorial 3</summary>
+Apply the SOLID principles you have learned. You are allowed to modify the source code according to the principles you want to implement. To explain your principles, please answer the following questions: 1) Explain what principles you apply to your project; 2) Explain the benefits of applying SOLID principles to your project. Give an example, and 3) Explain the disadvantages if you do not apply SOLID principles to your project. Give an example. Write the answer in the README.md file.
+
+1. - **Single Responsibility Principle (SRP)**: The Single Responsibility Principle is applied by ensuring that each class or module has only one reason to change. For example, `ProductRepository` and `CarRepository` have the single responsibility of managing the persistence of Product and Car entities, respectively.
+    - **Open/Closed Principle (OCP):** The Open/Closed Principle is implemented by designing classes and modules that are open for extension but closed for modification. For instance, the controllers (`ProductController` and `CarController`) can be extended to add new features without modifying their existing code.
+
+2. - **Flexibility**:OCP and SRP allow extending functionality without modifying existing code and can be done easily. This flexibility and convenience is valuable when we want to create an application that will continue to grow over time.
+    - **Cohesion**: The advantage of the Single Responsibility Principle (SRP) is that it promotes high cohesion, meaning that each class or module has a single, well-defined responsibility, making the code more maintainable and understandable.
+    - **Example**: For example, the application will have new features added. By following SRP, adding new features will be easier because each class in the code only handles one responsibility so developers can know which parts to change.
+
+3. - **Code Rigidity**: Without OCP, modifying existing code becomes a necessity when extending functionality. This can lead to a rigid codebase that is resistant to changes and introduces a higher risk of introducing bugs.
+    - **Maintenance Challenges**: Lack of SRP can result in classes or modules with multiple responsibilities. When changes are required, understanding the impact and making modifications becomes challenging.
+    - **Example**: Consider a scenario where a new feature called `CarRating` is to be added to the application and this feature is written inside `CarRepository.java`. This scenario violates SRP because `CarRepository.java` handles two responsibilities namely managing the database and handling car ratings. These violations make the code difficult to read and maintain.
+
+
+
+</details>
