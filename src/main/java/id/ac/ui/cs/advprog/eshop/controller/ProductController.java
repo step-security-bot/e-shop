@@ -17,40 +17,40 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @GetMapping("/create")
+    @GetMapping("/createProduct")
     public String createProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
         return "CreateProduct";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createProduct")
     public String createProductPost(@ModelAttribute Product product, Model model){
         service.create(product);
         return "redirect:list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listProduct")
     public String productListPage(Model model) {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
         return "ListProduct";
     }
 
-    @GetMapping("/delete/{name}")
+    @GetMapping("/deleteProduct/{name}")
     public String deleteProduct(@PathVariable("name") String name, Model model) {
         service.delete(name);
         return "redirect:/product/list";
     }
 
-    @GetMapping("/edit/{name}")
+    @GetMapping("/editProduct/{name}")
     public String editProductPage(@PathVariable("name") String name, Model model) {
         Product product = service.findByName(name);
         model.addAttribute("product", product);
         return "EditProduct";
     }
 
-    @PostMapping("/edit/{name}")
+    @PostMapping("/editProduct/{name}")
     public String editProductPost(@ModelAttribute Product product, @PathVariable("name") String name, Model model) {
         service.update(product, name);
         return "redirect:/product/list";
