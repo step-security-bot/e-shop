@@ -9,7 +9,7 @@
 
 <div class="container my-2">
     <h2>Product List</h2>
-    <a th:href="@{/product/create}" id="createProduct" class="btn btn-primary btn-sm mb-3">Create Product</a>
+    <a th:href="@{/product/createProduct}" id="createProduct" class="btn btn-primary btn-sm mb-3">Create Product</a>
 
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
@@ -24,8 +24,8 @@
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
             <td>
-                <a th:href="@{/product/edit/{name}(name=${product.productName})}" class="btn btn-primary btn-sm mb-3">Edit</a>
-                <a th:href="@{/product/delete/{name}(name=${product.productName})}" class="btn btn-danger btn-sm mb-3">Delete</a>
+                <a th:href="@{/product/editProduct/{name}(name=${product.productName})}" class="btn btn-primary btn-sm mb-3">Edit</a>
+                <a th:href="@{/product/deleteProduct/{name}(name=${product.productName})}" class="btn btn-danger btn-sm mb-3">Delete</a>
             </td>
         </tr>
         </tbody>
