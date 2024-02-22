@@ -1,8 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.AllService;
 import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
+import id.ac.ui.cs.advprog.eshop.service.ProductServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductController {
     
     @Autowired
-    private AllService<Product> service;
+    private ProductServiceImpl productService;
 
     @GetMapping("/createProduct")
     public String createProductPage(Model model) {
@@ -26,27 +26,26 @@ public class ProductController {
 
     @PostMapping("/createProduct")
     public String createProductPost(@ModelAttribute Product product, Model model){
-        service.create(product);
-        System.out.println("halo from controller");
+        productService.create(product);
         return "redirect:listProduct";
     }
 
     @GetMapping("/listProduct")
     public String productListPage(Model model) {
-        List<Product> allProducts = service.findAll();
+        List<Product> allProducts = productService.findAll();
         model.addAttribute("products", allProducts);
         return "ListProduct";
     }
 
     @PostMapping("/deleteProduct")
     public String deleteProduct(@RequestParam("productId") String productId) {
-        service.deleteObjectById(productId);
+        productService.deleteObjectById(productId);
         return "redirect:listProduct";
     }
 
     @GetMapping("/editProduct/{productId}")
     public String editProductPage(@PathVariable("productId") String productId, Model model) {
-        Product product = service.findById(productId);
+        Product product = productService.findById(productId);
         model.addAttribute("product", product);
         return "EditProduct";
     }
@@ -54,7 +53,7 @@ public class ProductController {
     @PostMapping("/editProduct")
     public String editProductPost(@ModelAttribute Product product, Model model) {
         System.out.println(product.getProductId());
-        service.update(product.getProductId(), product);
+        productService.update(product.getProductId(), product);
 
         return "redirect:listProduct";
     }
@@ -105,5 +104,14 @@ class CarController extends ProductController {
     public String deleteCar(@RequestParam("carId") String carId) {
         carService.deleteObjectById(carId);
         return "redirect:listCar";
+    }
+}
+
+@Controller
+@RequestMapping("/")
+class HomeController {
+    @GetMapping
+    public String homePage() {
+        return "Homepage";
     }
 }

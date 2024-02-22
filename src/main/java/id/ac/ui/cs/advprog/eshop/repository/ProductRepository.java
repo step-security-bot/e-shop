@@ -17,7 +17,6 @@ public class ProductRepository {
             UUID uuid = UUID.randomUUID();
             product.setProductId(uuid.toString());
         }
-        System.out.println("halo from repo");
         productData.add(product);
         return product;
     }
