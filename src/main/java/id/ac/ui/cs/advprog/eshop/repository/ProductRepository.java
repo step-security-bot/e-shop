@@ -1,13 +1,22 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.springframework.stereotype.Repository;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class ProductRepository {
-    private static List<Product> productData = new ArrayList<>();
+    static int id = 0;
+
+    private List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
+        if (product.getProductId() == null) {
+            UUID uuid = UUID.randomUUID();
+            product.setProductId(uuid.toString());
+        }
         productData.add(product);
         return product;
     }
@@ -16,33 +25,28 @@ public class ProductRepository {
         return productData.iterator();
     }
 
-    public static Product findByName(String name) {
+    public Product findById(String id) {
         for (Product product : productData) {
-            if (product.getProductName().equals(name)) {
+            if (product.getProductId().equals(id)) {
                 return product;
             }
         }
         return null;
     }
 
-    public Product delete(String name) {
-        Product product = findByName(name);
-        if (product != null) {
-            productData.remove(product);
+    public Product update (String id, Product updateProduct) {
+        for (int i = 0; i < productData.size(); i++) {
+            Product product = productData.get(i);
+            if (product.getProductId().equals(id)) {
+                product.setProductName(updateProduct.getProductName());
+                product.setProductQuantity(updateProduct.getProductQuantity());
+                return product;
+            }
         }
-        return product;
+        return null;
     }
 
-    public Product update(Product product, String name) {
-        Product oldProduct = findByName(name);
-        if (oldProduct != null) {
-            oldProduct.setProductName(product.getProductName());
-            oldProduct.setProductQuantity(product.getProductQuantity());
-        }
-        return oldProduct;
-    }
+    public void delete (String id) { productData.removeIf(product -> product.getProductId().equals(id));}
 
-    public  void clear() {
-        productData.clear();
-    }
+    public void clear() { productData.clear(); }
 }
