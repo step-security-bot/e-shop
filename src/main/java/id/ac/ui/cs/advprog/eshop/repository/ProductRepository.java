@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ProductRepository {
     static int id = 0;
 
-    private List<Product> productData = new ArrayList<>();
+    List<Product> productData = new ArrayList<>();
 
     public Product create(Product product) {
         if (product.getProductId() == null) {
@@ -35,18 +35,14 @@ public class ProductRepository {
     }
 
     public Product update (String id, Product updateProduct) {
-        for (int i = 0; i < productData.size(); i++) {
-            Product product = productData.get(i);
-            if (product.getProductId().equals(id)) {
-                product.setProductName(updateProduct.getProductName());
-                product.setProductQuantity(updateProduct.getProductQuantity());
-                return product;
-            }
-        }
-        return null;
+        UpdateProduct update = new UpdateProduct(this);
+        return update.updateProduct(id, updateProduct);
     }
 
-    public void delete (String id) { productData.removeIf(product -> product.getProductId().equals(id));}
+    public void delete (String id) {
+        DeleteProduct deleteProduct = new DeleteProduct(this);
+        deleteProduct.deleteProduct(id);
+    }
 
     public void clear() { productData.clear(); }
 }
